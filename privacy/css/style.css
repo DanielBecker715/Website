@@ -1,0 +1,90 @@
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin: 0;
+}
+.header {
+	position: sticky;
+	overflow: hidden;
+	background-color: #101317;
+	padding: 10px 10px;
+}
+
+.header a {
+	float: left;
+	color: black;
+	text-align: center;
+	padding: 12px;
+	text-decoration: none;
+	font-size: 15px; 
+	line-height: 15px;
+	border-radius: 4px;
+}
+
+.header a.logo {
+	font-size: 25px;
+	font-weight: bold;
+	color: white;
+}
+.header a.inaktiv {
+    transition: .2s;
+	background-color: #f5f5f5;
+	font-weight: bold;
+	color: black;
+}
+.header-right a.inaktiv:hover {
+	background-color: #47494c;
+	color: white;
+}
+.header-right {
+	float: right;
+}
+.ueberschriftnav {
+    position: absolute;
+    margin-top: 45px;
+    text-align: center;
+    font-size: 34px;
+    font-weight: bold;
+    width: 100%;
+	color: #2c2c2c;
+}
+.Bedingungen {
+	position: absolute;
+	color: black;
+	top: 170px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+.infotitel {
+	font-family: 'Roboto', sans-serif;
+	color: #2c2c2c;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+a.ueberschriften {
+	font-family: 'Roboto', sans-serif;
+    display: block;
+    color: black;
+    font-size: 26px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+span.inhalt {
+	font-family: 'Open Sans', sans-serif;
+}
+a.link {
+    color: #2884ff;
+	text-decoration: none;
+}
+a.link:hover {
+    color: #2884ff;
+	text-decoration: underline;
+}
+#endlink {
+	margin-top: 100px;
+}

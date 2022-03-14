@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-style: normal;
+    text-align: left;
+    color: #fff;
+    width: 100%;
+}
+.header {
+	overflow: hidden;
+	background-color: #0c0e13;
+    display: flex;
+}
+.header a {
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+	float: left;
+	text-align: center;
+	text-decoration: none;
+	font-size: 19px;
+	border-radius: 4px;
+    margin: 0 7px 0 7px;
+}
+.header a:hover {
+	text-decoration: none;
+}
+.navigation {
+	display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    white-space: nowrap;
+}
+.navigation a.logo {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	margin: 0 10px 0 20px;
+}
+.nav {
+	list-style: none;
+    padding: 0;
+}
+nav.account {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    text-align: justify;
+    padding: 0 30px 0 0;
+}
+.nav-item {
+    display: contents;
+    color: #fff;
+    text-align: center;
+}
+.nav-link-active {
+	color: #ff7676;
+}
+.nav-link {
+	color: #fff;
+}
+.nav-link:after {
+	display: flex;
+	content: '';
+	position: inherit;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	transform-origin: bottom right;
+	transition: transform 0.25s ease-out;
+}
+.nav-link:hover:after {
+	transform: scaleX(1);
+	text-decoration: underline;
+	transform-origin: bottom left;
+}
+#accountpopup {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.ueberschriftnav {
+	line-height: 50px;
+	margin: 0 auto;
+	width: auto;
+	font-size: 23px;
+	text-decoration: none;
+}
+a.überschrift1 {
+	position:absolute;
+	margin-top:75px;
+	text-align:center;
+	font-size: 34px;
+	font-weight: bold;
+	width: 100%;
+}
+#footer {
+	bottom: 0;
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    font-style: normal;
+    color: #979797;
+    width: 100%;
+    background-color: #0c0e13;
+}
+#footer span {
+    font-size: 12px;
+    margin: 0 20px;
+}
+#footer a {
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+}
+#footer a.social {
+    margin: 0 20px;
+}
+status .legend {
+    padding: 10px 25px;
+    border: 1px solid #cfcfd1;
+    display: table;
+    margin: 65px auto 145px;
+    font-size: .875em;
+}
+#main {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    width: 75%;
+}
+hr {
+    width: 100%;
+    margin: 0 0 30px 0;
+    border: 1px solid black;
+}
+.boxview {
+    text-align: center;
+	width:265px;
+	min-height:437px;
+}
+.imgview {
+    width: 260px;
+    height: 260px;
+	border: 1px solid #cfcfd1;
+}
+.boxborder {
+	margin: 0 auto;
+}
+div h3 {
+    font-weight: 400;
+    font-size: 1.25em;
+    color: black;
+}
+div h2 {
+	text-align:center;
+    font-size: 1.75em;
+	margin: 23px 0 0 0;
+    width: 100%;
+	color: black;
+}
+#updated {
+    color: rgba(0,0,0,.7);
+    margin: 5px 0 15px;
+    width: 100%;
+	text-align:center;
+}
+.textbox {
+	color: black;
+}
+.textview {
+	border: 1px solid #00000012;
+	margin:0;
+}
+.failed {
+    vertical-align: middle;
+	font-size:40px;
+	color:#C00000;
+}
+.success {
+    vertical-align: middle;
+	font-size:40px;
+	color:#00C071;
+}
+.waiting {
+    vertical-align: middle;
+	font-size:40px;
+	color:#E36E00;
+}
+aside {
+	color: black;
+    margin: 0 auto;
+}
+#legende {
+	width: 275px;
+	border: 1px solid darkgray;
+	display: flex;
+    margin: 40px auto 0;
+}
+
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #Fff;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+@keyframes loader {
+  0% { transform: rotate(0deg);}
+  25% { transform: rotate(180deg);}
+  50% { transform: rotate(180deg);}
+  75% { transform: rotate(360deg);}
+  100% { transform: rotate(360deg);}
+}
+@keyframes loader-inner {
+  0% { height: 0%;}
+  25% { height: 0%;}
+  50% { height: 100%;}
+  75% { height: 100%;}
+  100% { height: 0%;}
+}

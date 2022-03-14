@@ -1,0 +1,37 @@
+/*======================
+    404 page
+=======================*/
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+body {
+	font-family: 'Didact Gothic', sans-serif;
+	background-color: white;
+}
+.box {
+	padding: 10% 0 10% 0;
+    text-align: center;
+}
+h1 {
+    font-size: 150px;
+	margin: 0;
+}
+h2 {
+    font-size: 56px;
+	margin: 0;
+}
+#btnback {
+    background-color: black;
+    margin: 23px 0 0 0;
+    color: white;
+    font-size: 25px;
+    border: none;
+	cursor: pointer;
+}
+#btnback:hover {
+    background-color: white;
+    margin: 23px 0 0 0;
+    color: black;
+    font-size: 25px;
+    border: 1px solid black;
+	cursor: pointer;
+}

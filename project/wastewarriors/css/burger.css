@@ -1,0 +1,118 @@
+
+.menu-button{
+  width: 80px;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.burger{
+  width: 50px;
+  height: 6px;
+  background: white;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
+}
+
+.burger::before,
+.burger::after{
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 6px;
+  background: white;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
+}
+
+.burger::before{
+  transform: translateY(-16px);
+}
+
+.burger::after{
+  transform: translateY(16px);
+}
+
+.menu-button.open .burger{
+  transform: translateX(-50px);
+  background: transparent;
+}
+
+.menu-button.open .burger::before{
+  transform: rotate(45deg) translate(35px, -35px);
+}
+
+.menu-button.open .burger::after{
+  transform: rotate(-45deg) translate(35px, 35px);
+}
+
+.menu{
+  position: absolute;
+  display: none;
+  float: right;
+  right: 0;
+  width: 20em;
+  height: 86%;
+  background-color: #272727;
+  z-index: 99999;
+  transition: .5s ease-in-out;
+}
+
+.menu-nav{
+  list-style: none;
+  padding: 0;
+  margin-top: 1.4em;
+  text-align: center;
+}
+
+.menu-nav-item{
+  padding: 2em;
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+  background-color: transparent;
+  background: linear-gradient(to left, transparent 50%, #00AACC 50%);
+  background-size: 200%;
+  background-position: right;
+  transition: background-position 0.3s ease-in-out;
+}
+
+.menu-nav-item:last-child{
+  border-top: none;
+}
+
+.menu-nav-item:hover{
+  cursor: pointer;
+  background-position: left;
+}
+
+.menu-nav-link{
+  color: white;
+  text-decoration: none;
+}
+
+#menu-teamname{
+  margin-left: 2em;
+  border-bottom: 4px solid #00AACC;
+  border-right: none;
+}
+
+#topmenu{
+  border-top: 3px solid white;
+}
+
+@media only screen and (max-width: 1255px) {
+
+  .menu-button{
+    display: flex;
+  }
+
+}
+
+@media only screen and (max-width: 450px) {
+
+.burger, .burger::before, .burger::after{
+  height: 4px;
+}
+
+}
