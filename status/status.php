@@ -97,5 +97,6 @@ $json->server[] = get_server_status_socket($dbsrv0, $dbService, "database-servic
 $json->server[] = get_database_status("dbscooteq", "scooteq");
 $json->server[] = get_database_status("dbitsolutions", "itsolutions");
 $json->server[] = get_database_status("dbwastewarriors", "wastewarriors");
+$json->server[] = get_database_status("dbsubnetcalculator", "subnetcalculator");
 echo json_encode($json);
 ?>

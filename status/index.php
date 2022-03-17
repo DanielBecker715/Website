@@ -78,6 +78,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 							<p class="textview"><span id="dbscooteq" class='failed'>&#8226;</span> ScooTeq</p>
 							<p class="textview"><span id="dbitsolutions" class='failed'>&#8226;</span> ItSolutions</p>
 							<p class="textview"><span id="dbwastewarriors" class='failed'>&#8226;</span> WasteWarriors</p>
+							<p class="textview"><span id="dbsubnetcalculator" class='failed'>&#8226;</span> SubnetCalculator</p>
 						</article>
 					</div>
 				</div>

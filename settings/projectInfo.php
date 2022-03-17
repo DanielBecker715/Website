@@ -19,6 +19,11 @@ array("path" => "project/wastewarriors",
 	"name" => "WasteWarriors",
 	"topic" => "Anti plastic campain",
 	"description" => "Since I think that mankind uses way too much plastic, I made a website to show how much it actually is. WasteWarriors is a fictional company designed according to my own ideas."),
+//SubnetCalculator project
+array("path" => "project/subnetcalculator",
+	"name" => "SubnetCalculator",
+	"topic" => "Calculate custom subnets",
+	"description" => "Since this was a part of my final project for the Professional baccalaureate, I developed this subnet calculator, which should enable you to calculate subnet addresses faster."),
 );
 
 $gameProjects = array (
