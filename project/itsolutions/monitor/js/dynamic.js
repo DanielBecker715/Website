@@ -19,7 +19,11 @@ function main() {
 				newElement.appendChild(textnode);
 				
 				//Add new element to existing element
-				document.getElementById('logbox').appendChild(newElement);
+				let old = document.getElementById('logbox').appendChild(newElement);
+				
+				//Scroll to new element
+				var elem = document.getElementById('logbox');
+				elem.scrollTop = elem.scrollHeight;
 			} else {
 				//If 'calculate.php' not reachable
 				alert("Error during query");

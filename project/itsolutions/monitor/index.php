@@ -8,7 +8,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/general.php');
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?=$companyName." - Pricing"?></title>
+		<title><?=$companyName." - Monitor"?></title>
 		<link rel="shortcut icon" type="image/x-icon" href="<?=$projectFavicon?>">
 		<!-- fonts -->
 		<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
