@@ -8,11 +8,8 @@ function main() {
 		data: {
 		},
 		complete: function(data) {
-			//Wurde die Seite erfolgreich geladen(HTTP Status code 200)
 			if (data.status===200) {
-				//Convertieren von String zum Array
 				let json = JSON.parse(data.responseText);
-				//Entweder True oder False
 				if (json.error == true) {
 					$('#errormsg').text(json.errormsg);
 				} else {
@@ -21,6 +18,7 @@ function main() {
 						let span = document.getElementById(server.name);
 						if (span) {
 							if (server.status === true) {
+								//Readding classes
 								if (span.classList.contains("failed")) {
 									span.classList.remove("failed");
 								}
@@ -28,6 +26,7 @@ function main() {
 									span.classList.add("success");
 								}
 							} else {
+								//Readding classes
 								if (!span.classList.contains("failed")) {
 									span.classList.add("failed");
 								}
@@ -37,6 +36,7 @@ function main() {
 							}
 						}
 						if (server.status === true) {
+							//Readding classes
 							if (span.classList.contains("failed")) {
 								span.classList.remove("failed");
 							}
@@ -44,6 +44,7 @@ function main() {
 								span.classList.add("success");
 							}
 						} else {
+							//Readding classes
 							if (!span.classList.contains("failed")) {
 								span.classList.add("failed");
 							}
@@ -54,7 +55,7 @@ function main() {
 					}
 				}
 			} else {
-				//'status.php' nicht erreichbar
+				//'status.php' not available
 				alert("Error during query");
 			}
 		let currentdate = new Date(); 
@@ -70,7 +71,7 @@ function main() {
 		}
 	});
 }
-//Wird ausgeführt wenn die Webseite fertig geladen wurde 
+//Will be executed when the web page has finished loading
 $( document ).ready(function() {
 	main();
 	setInterval(main, 10000);

@@ -1,16 +1,24 @@
+HTML {
+	position: relative;
+	min-height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: white;
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-style: normal;
     text-align: left;
-    color: #fff;
+    color: black;
     width: 100%;
 }
 .header {
-	overflow: hidden;
-	background-color: #0c0e13;
+	position: sticky;
+	top: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #0c0e13;
     display: flex;
 }
 .header a {
@@ -81,33 +89,142 @@ nav.account {
 	text-decoration: underline;
 	transform-origin: bottom left;
 }
+h4.headline {
+    margin: 15px 0 5px 0;
+    font-size: 23px;
+    color: #1f2123;
+}
+div.wrapper {
+	font-family: 'Oswald', sans-serif;
+    display: flex;
+    flex-flow: wrap;
+	margin: 0 auto;
+}
+section.severlogs {
+    width: 75%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 450px) {
+	#logbox {
+		width: 100%;
+	}
+}
+@media screen and (min-width: 1000px) {
+	#logbox {
+		width: 70%;
+	}
+}
+@media screen and (min-width: 1700px) {
+	#logbox {
+		width: 60%;
+	}
+}
+@media screen and (min-width: 2000px) {
+	#logbox {
+		width: 50%;
+	}
+}
+@media screen and (min-width: 3000px) {
+	#logbox {
+		width: 36%;
+	}
+}
+#logbox {
+    max-height: 350px;
+    font-weight: bold;
+    margin: 0 auto;
+    max-height: 350px;
+    background-color: white;
+    overflow: auto;
+    border: black 1px solid;
+    padding-left: 10px;
+    color: black;
+    letter-spacing: 1.5px;
+}
+.logtext {
+    margin: 10px 0 10px 0;
+	width: 100%;
+}
+hr {
+    width: 100%;
+    margin: 0 auto 60px;
+    border: 1px solid black;
+}
+
 #accountpopup {
     cursor: pointer;
     text-decoration: none;
     color: white;
 }
-
-.container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
+.boxborder {
+    text-align: center;
+    margin: 10px auto;
 }
-.ueberschriftnav {
-	line-height: 50px;
-	margin: 0 auto;
-	width: auto;
-	font-size: 23px;
-	text-decoration: none;
+div h3 {
+    font-size: 23px;
+    color: black;
+    margin: 15px 0 5px 0
 }
-a.überschrift1 {
-	position:absolute;
-	margin-top:75px;
+div h2 {
 	text-align:center;
-	font-size: 34px;
-	font-weight: bold;
-	width: 100%;
+    font-size: 50px;
+    margin: 40px 0 40px 0;
+    width: 100%;
+}
+div.userinputs {
+	display: inline-block;
+	color:white;
+	width: 300px;
+	text-align: center;
+	padding: 10px;
+}
+div.output {
+	display: inline-block;
+	color:white;
+	width: 300px;
+	text-align: center;
+	padding: 10px;
+	float: right;
+}
+#calculation {
+    width: 90%;
+    margin: 25px auto 0;
+}
+input {
+ color:#e0e0e0;
+ width:250px;
+ height:40px;
+ padding-left:10px;
+ font-size:16px;
+ background-color: #1a212d;
+ border: 1px solid #0f141f;
+}
+select {
+ color:#e0e0e0;
+ width:250px;
+ height:40px;
+ padding-left:10px;
+ font-size:16px;
+ background-color: #1a212d;
+ border: 1px solid #0f141f;
+}
+#errormsg {
+    margin: 0px;
+    margin-top: 15px;
+    color: #ff4c4c;
+    font-size: 17px;
+    font-weight: bold;
+}
+label {
+	display: inherit;
+    margin: 15px auto 5px ;
+    font-size: 23px;
+    color: #1f2123;
+	width:250px;
+	text-align:left;
 }
 #footer {
-	bottom: 0;
     position: absolute;
     margin: 0 auto;
     text-align: center;
@@ -115,6 +232,7 @@ a.überschrift1 {
     color: #979797;
     width: 100%;
     background-color: #0c0e13;
+    bottom: 0;
 }
 #footer span {
     font-size: 12px;
@@ -127,127 +245,4 @@ a.überschrift1 {
 }
 #footer a.social {
     margin: 0 20px;
-}
-status .legend {
-    padding: 10px 25px;
-    border: 1px solid #cfcfd1;
-    display: table;
-    margin: 65px auto 145px;
-    font-size: .875em;
-}
-#main {
-    display: flex;
-    flex-flow: row wrap;
-    margin: 0 auto;
-    width: 75%;
-}
-hr {
-    width: 100%;
-    margin: 0 0 30px 0;
-    border: 1px solid black;
-}
-.boxview {
-    text-align: center;
-	width:265px;
-	min-height:437px;
-}
-.imgview {
-    width: 260px;
-    height: 260px;
-	border: 1px solid #cfcfd1;
-}
-.boxborder {
-	margin: 0 auto;
-}
-div h3 {
-    font-weight: 400;
-    font-size: 1.25em;
-    color: black;
-}
-div h2 {
-	text-align:center;
-    font-size: 1.75em;
-	margin: 23px 0 0 0;
-    width: 100%;
-	color: black;
-}
-#updated {
-    color: rgba(0,0,0,.7);
-    margin: 5px 0 15px;
-    width: 100%;
-	text-align:center;
-}
-.textbox {
-	color: black;
-}
-.textview {
-	border: 1px solid #00000012;
-	margin:0;
-}
-.failed {
-    vertical-align: middle;
-	font-size:40px;
-	color:#C00000;
-}
-.success {
-    vertical-align: middle;
-	font-size:40px;
-	color:#00C071;
-}
-.waiting {
-    vertical-align: middle;
-	font-size:40px;
-	color:#E36E00;
-}
-aside {
-	color: black;
-    margin: 0 auto;
-}
-#legende {
-	width: 275px;
-	border: 1px solid darkgray;
-	display: flex;
-    margin: 40px auto 0;
-}
-
-
-.loader-wrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #242f3f;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-.loader {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  position: relative;
-  border: 4px solid #Fff;
-  animation: loader 2s infinite ease;
-}
-.loader-inner {
-  vertical-align: top;
-  display: inline-block;
-  width: 100%;
-  background-color: #fff;
-  animation: loader-inner 2s infinite ease-in;
-}
-@keyframes loader {
-  0% { transform: rotate(0deg);}
-  25% { transform: rotate(180deg);}
-  50% { transform: rotate(180deg);}
-  75% { transform: rotate(360deg);}
-  100% { transform: rotate(360deg);}
-}
-@keyframes loader-inner {
-  0% { height: 0%;}
-  25% { height: 0%;}
-  50% { height: 100%;}
-  75% { height: 100%;}
-  100% { height: 0%;}
 }

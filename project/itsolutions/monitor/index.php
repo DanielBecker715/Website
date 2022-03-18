@@ -1,29 +1,28 @@
 <?php
 session_start();
-include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
+include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/general.php');
 
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
-		<meta charset="utf-8">
-		<title><?=$companyName." - Status"?></title>
-		<link rel="shortcut icon" type="image/x-icon" href="<?=$fav?>">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title><?=$companyName." - Pricing"?></title>
+		<link rel="shortcut icon" type="image/x-icon" href="<?=$projectFavicon?>">
 		<!-- fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 		<!-- css files -->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" id="parent-style-css" href="css/style.css" type="text/css" media="all" />
 		<!-- javascript files -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="js/js.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/dynamic.js"></script>
 	</head>
 	<body>
-		<div class="loader-wrapper">
-			<span class="loader"><span class="loader-inner"></span></span>
-		</div>
 		<div class="header">
 			<nav class="navigation">
-				<a class="logo" href="/" target="_self"><?=$companyName?></a>
+				<a class="logo" href="<?=$projectPath;?>" target="_self"><?=$companyName?></a>
 				<ul class="nav">
 					<?php
 						//Setting up navigation from imported settings
@@ -35,57 +34,30 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 					?>
 				</ul>
 			</nav>
+			<?php
+			//Check if user is already logged in / based on session id
+			if (strlen($_SESSION['itsolutions_userid']==0)) {
+				session_destroy();
+				//show login and register
+				echo"<nav class='account'>
+						<a class='nav-link' href='".$projectPath."/login"."' target='_self'>Login</a>
+						<aside id='account_placeholder'>/</aside>
+						<a class='nav-link' href='".$projectPath."/register"."' target='_self'>Register</a>
+					</nav>";
+			} else {
+				//show logout
+				echo"<nav class='account'>
+						<a id='accountpopup'>".$_SESSION['itsolutions_username']."</a>
+						<a id='accountpopup' href='".$projectPath."/logout"."' target='_self'>Logout</a>
+					</nav>";
+			}?>
 		</div>
-		<section class="serverstatus">
-			<div id="main">
-				<h2>Service-Status</h2>
-				<aside id="updated"></aside>
+		<section class="severlogs">
+			<div class="wrapper">
+				<h2>Serverlogs</h2>
 				<hr>
-				<!---->
-				<div class="boxborder">
-					<div class="boxview">
-						<img class="imgview" src="img/server.png">
-						<article class="textbox">
-							<h3>Server</h3>
-							<p class="textview"><span id="mailgateway1" class='failed'>&#8226;</span> Mailgateway 1</p>
-							<p class="textview"><span id="mailgateway2" class='failed'>&#8226;</span> Mailgateway 2</p>
-							<p class="textview"><span id="mailserver" class='failed'>&#8226;</span> Mail Server</p>
-							<p class="textview"><span id="databaseserver" class='failed'>&#8226;</span> Database Server</p>
-							<p class="textview"><span id="webserver" class='failed'>&#8226;</span> Web Server</p>
-							<p class="textview"><span id="monitorserver" class='failed'>&#8226;</span> Monitor Server</p>
-						</article>
-					</div>
+				<div id="logbox">
 				</div>
-				<!---->
-				<div class="boxborder">
-					<div class="boxview">
-						<img class="imgview" src="img/services.png">
-						<article class="textbox">
-							<h3>Services</h3>
-							<p class="textview"><span id="mailgateway1-mailservice" class='failed'>&#8226;</span> Mailgateway1 - SMTP</p>
-							<p class="textview"><span id="mailgateway2-mailservice" class='failed'>&#8226;</span> Mailgateway2 - SMTP</p>
-							<p class="textview"><span id="mailserver-mailservice" class='failed'>&#8226;</span> Mail Server - SMTP</p>
-							<p class="textview"><span id="database-service" class='failed'>&#8226;</span> Database Service</p>
-						</article>
-					</div>
-				</div>
-				<!---->
-				<div class="boxborder">
-					<div class="boxview">
-						<img class="imgview" src="img/database.jpg">
-						<article class="textbox">
-							<h3>Databases-Availability</h3>
-							<p class="textview"><span id="dbscooteq" class='failed'>&#8226;</span> ScooTeq</p>
-							<p class="textview"><span id="dbitsolutions" class='failed'>&#8226;</span> ItSolutions</p>
-							<p class="textview"><span id="dbwastewarriors" class='failed'>&#8226;</span> WasteWarriors</p>
-						</article>
-					</div>
-				</div>
-
-			</div>
-			<div id="legende">
-				<aside><a class='success'>&#8226;</a> Online</aside>
-				<aside><a class='failed'>&#8226;</a> Offline</aside>
 			</div>
 		</section>
 		<div id="footer">
