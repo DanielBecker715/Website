@@ -54,6 +54,7 @@ body {
     padding: 0;
 }
 nav.account {
+	color:white;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -169,8 +170,13 @@ div h3 {
 div h2 {
 	text-align:center;
     font-size: 50px;
-    margin: 40px 0 40px 0;
+    margin: 40px 0 0 0;
     width: 100%;
+}
+div.wrapper aside {
+	font-size: 18px;
+    margin: auto auto 30px auto;
+    font-weight: bold;
 }
 div.userinputs {
 	display: inline-block;

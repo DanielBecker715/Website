@@ -55,6 +55,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/general.php');
 		<section class="severlogs">
 			<div class="wrapper">
 				<h2>Serverlogs</h2>
+				<aside class="text-timezone">Server TimeZone: CT</aside>
 				<hr>
 				<div id="logbox">
 				</div>

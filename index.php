@@ -68,12 +68,21 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 				<?php
 					//Setting up project boxes from imported settings
 					for ($i=0; $i<=count($gameProjects)-1; $i++) {
+						if (file_exists($gameProjects[$i]['path'])) {
+							$gameProjects[$i]['status'] = "Available";
+							$gameProjects[$i]['status-color'] = "#8EC2AE";
+						} else {
+							$gameProjects[$i]['path'] = null;
+							$gameProjects[$i]['status'] = "Unvailable";
+							$gameProjects[$i]['status-color'] = "#FF9999";
+						}
 						echo "
 							<div class='boxborder'>
 								<article class='textbox'>
 									<span class='projects-h1'>".$gameProjects[$i]['name']."</span>
 									<hr class='projects-hr'>
 									<p class='projects-text-description'>Ver: ".$gameProjects[$i]['ver']."</p>
+									<p class='projects-text-description'>Status: <a style='color:".$gameProjects[$i]['status-color'].";text-transform:uppercase;font-weight:bold;'>".$gameProjects[$i]['status']."</a></p>
 									<p class='projects-text-description'>Description:</p>
 									<p class='projects-text'>".$gameProjects[$i]['description']."</p>
 									<hr class='projects-hr'>

@@ -92,23 +92,26 @@ function checkUserExists($username) {
 	if($data['id'] != 0) {
 		$_SESSION['register_err']="Username already exists";
 		header("Location:".$GLOBALS['projectPath']."/register");
+		exit();
 	}
 }
 
 function createUser($firstname, $lastname, $username, $hashed_password) {
 	//Create User
 	$sql_createUser = "INSERT INTO ".$GLOBALS['tbl_name']." (firstname, lastname, username, password)
-	VALUES (?', ?, ?, ?);";
+	VALUES ('".$firstname."', '".$lastname."', '".$username."', '".$hashed_password."');";
+	
+	mysqli_query($GLOBALS['db_connection'], $sql_createUser);
 	
 	//Prepare statements
-	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
+	/*$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_getUser)) {
 		echo "Input SQL statement failed!";
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $username, $hashed_password);
 		mysqli_stmt_execute($stmt);
-	}
+	}*/
 }
 
 function loginUser($username, $hashed_password) {
