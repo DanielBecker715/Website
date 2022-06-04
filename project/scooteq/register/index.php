@@ -97,25 +97,21 @@ function checkUserExists($username) {
 }
 
 function createUser($firstname, $lastname, $username, $hashed_password) {
-	//Create User
 	$sql_createUser = "INSERT INTO ".$GLOBALS['tbl_name']." (firstname, lastname, username, password)
-	VALUES ('".$firstname."', '".$lastname."', '".$username."', '".$hashed_password."');";
-	
-	mysqli_query($GLOBALS['db_connection'], $sql_createUser);
+	VALUES (?, ?, ?, ?);";
 	
 	//Prepare statements
-	/*$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
-	if (!mysqli_stmt_prepare($stmt, $sql_getUser)) {
+	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
+	if (!mysqli_stmt_prepare($stmt, $sql_createUser)) {
 		echo "Input SQL statement failed!";
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $username, $hashed_password);
 		mysqli_stmt_execute($stmt);
-	}*/
+	}
 }
 
 function loginUser($username, $hashed_password) {
-	//Login user
 	$sql_getUser = "SELECT * FROM `".$GLOBALS['tbl_name']."` WHERE username=?;";
 	
 	//Prepare statements

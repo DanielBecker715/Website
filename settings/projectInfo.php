@@ -29,9 +29,9 @@ array("path" => "project/subnetcalculator",
 $gameProjects = array (
 
 //HorrorGame project
-array("path" => "downloads/latest.zip",
+array("path" => "downloads/Horrorgame-HDRP-Build.zip",
 	"name" => "HorrorGame",
-	"ver" => "0.14",
+	"ver" => "v0.1 UNOFFICIAL",
 	"description" => "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"),
 );
 
