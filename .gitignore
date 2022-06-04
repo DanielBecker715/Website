@@ -1,0 +1,15 @@
+#Ignore database sensitive data - Horrorgame
+/settings/horrorgame/database/connection.php
+
+#Ignore database sensitive data - IT-Solutions
+/settings/itsolutions/database/monitor_connection.php
+/settings/itsolutions/database/user_connection.php
+
+#Ignore database sensitive data - Scooteq
+/settings/scooteq/database/connection.php
+
+#Ignore database sensitive data - Subnetcalculator
+/settings/subnetcalculator/database/connection.php
+
+#Ignore database sensitive data - WasteWarriors
+/settings/wastewarriors/database/connection.php
