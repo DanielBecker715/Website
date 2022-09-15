@@ -29,10 +29,10 @@ array("path" => "project/subnetcalculator",
 $gameProjects = array (
 
 //HorrorGame project
-array("path" => "downloads/Horrorgame-HDRP-Build.zip",
+array("path" => "downloads/horrorgame/horrorgame-v0.101-dev-version.zip",
 	"name" => "HorrorGame",
-	"ver" => "v0.1 UNOFFICIAL",
-	"description" => "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam"),
+	"ver" => "v0.101 Experimental Dev",
+	"description" => "For some time now I have been developing a horror game. In addition to my education, I am continuing my education to realize my desire to create a horror game."),
 );
 
 ?>

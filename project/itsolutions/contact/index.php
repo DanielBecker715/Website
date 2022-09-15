@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/general.php');
 
 if(isset($_POST['submit'])) {

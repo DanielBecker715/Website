@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/getScooter.php'); //Imports the scooters from database
 

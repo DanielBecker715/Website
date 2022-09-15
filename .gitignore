@@ -13,3 +13,5 @@
 
 #Ignore database sensitive data - WasteWarriors
 /settings/wastewarriors/database/connection.php
+
+/settings/horrorgame-v0.101-dev-version.zip

@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/subnetcalculator/general.php');
 
 ?>
@@ -17,7 +17,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/subnetcalculator/general.php');
 		<!-- css files -->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!-- javascript files -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/dynamic.js"></script>
 	</head>
 	<body>

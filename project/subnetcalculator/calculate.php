@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/subnetcalculator/database/connection.php');
 
 //Erstellen einer Funktion mit den Funktionsparameter $part

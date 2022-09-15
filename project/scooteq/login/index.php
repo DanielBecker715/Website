@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/database/connection.php');
 
@@ -7,12 +7,13 @@ $tbl_name = "users";
 
 //Check if user is already logged in / based on session id
 if (strlen($_SESSION['scooteq_userid']!=0)) {
-	header("Location:".$projectPath);
+	header("Location: ".$projectPath);
+	exit;
 }
 
 if(isset($_POST['commitLogin'])) {
-	$username = mysqli_real_escape_string($db_connection, $_POST['username']);
-	$unhashed_password = mysqli_real_escape_string($db_connection, $_POST['password']);
+	$username = $_POST['username'];
+	$unhashed_password = $_POST['password'];
 	loginUser($username, $unhashed_password);
 }
 
@@ -23,6 +24,8 @@ function loginUser($username, $unhashed_password) {
 	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_getUser)) {
 		echo "SQL statement failed!";
+		var_dump(mysqli_stmt_error_list($stmt));
+		exit;
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "s", $username);
@@ -31,17 +34,18 @@ function loginUser($username, $unhashed_password) {
 		
 		$data = mysqli_fetch_array($result);
 	}
+
+	$isPasswordCorrect = password_verify($unhashed_password, $data['hash_password']);
 	
-	$isPasswordCorrect = password_verify($unhashed_password, $data['password']);
-	
-	if(isset($data['id'])) {
+	if(isset($data['userid'])) {
 		//If user was found
 		if ($isPasswordCorrect) {
 			$_SESSION['scooteq_firstname']=$data['firstname'];
 			$_SESSION['scooteq_lastname']=$data['lastname'];
 			$_SESSION['scooteq_username']=$data['username'];
-			$_SESSION['scooteq_userid']=$data['id'];
-			header("Location:".$GLOBALS['projectPath']);
+			$_SESSION['scooteq_userid']=$data['userid'];
+			header("Location: ".$GLOBALS['projectPath']);
+			exit;
 		} else {
 			$_SESSION['register_err']="Wrong password or username";
 		}

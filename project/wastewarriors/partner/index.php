@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/wastewarriors/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/project/wastewarriors/api/get_allpartners.php');
 ?>

@@ -3,7 +3,7 @@ function addZero(num) {
 }
 function main() {
 	$.ajax({
-		url: 'status.php',
+		url: '/api/serverstatus/index.php',
 		type: 'POST',
 		data: {
 		},
@@ -74,5 +74,5 @@ function main() {
 //Will be executed when the web page has finished loading
 $( document ).ready(function() {
 	main();
-	setInterval(main, 10000);
+	setInterval(main, 5000);
 });

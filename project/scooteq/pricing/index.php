@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/getScooter.php'); //Imports the scooters from database
 
@@ -17,7 +17,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/getScooter.php'); //Imports
 		<!-- css files -->
 		<link rel="stylesheet" id="parent-style-css" href="css/style.css" type="text/css" media="all" />
 		<!-- javascript files -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/dynamic.js"></script>
 	</head>
 	<body>

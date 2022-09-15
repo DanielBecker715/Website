@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 
 ?>
@@ -14,7 +14,7 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 		<!-- css files -->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!-- javascript files -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/js.js"></script>
 	</head>
 	<body>
@@ -76,7 +76,8 @@ include($_SERVER["DOCUMENT_ROOT"].'/settings/general.php');
 						<article class="textbox">
 							<h3>Databases-Availability</h3>
 							<p class="textview"><span id="dbscooteq" class='failed'>&#8226;</span> ScooTeq</p>
-							<p class="textview"><span id="dbitsolutions" class='failed'>&#8226;</span> ItSolutions</p>
+							<p class="textview"><span id="dbitsolutions" class='failed'>&#8226;</span> IT-Solutions</p>
+							<p class="textview"><span id="dbitsolutions-monitoring" class='failed'>&#8226;</span> IT-Solutions / Monitoring</p>
 							<p class="textview"><span id="dbwastewarriors" class='failed'>&#8226;</span> WasteWarriors</p>
 							<p class="textview"><span id="dbsubnetcalculator" class='failed'>&#8226;</span> SubnetCalculator</p>
 						</article>

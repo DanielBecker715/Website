@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #1e232d;
+    background-color: #fff;
     font-family: "IBM Plex Sans", sans-serif;
     color: #fff;
 }
@@ -91,17 +91,19 @@ section.gameprojects {
 	width: 75%;
 }
 section h1 {
+    color: black;
 	font-size: 40px;
 	text-align: center;
 }
 .boxborder {
 	border: 1px solid #0e0f12;
+    box-shadow: 6px 5px 12px #00000066;
     text-align: center;
 	width: 350px;
 	min-height:437px;
     margin: 30px auto;
     padding: 24px;
-    background-color: #1d2026;
+    background-color: #14161a;
 }
 hr.projects-hr-header {
     width: 75%;

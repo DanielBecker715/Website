@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/scooteq/database/connection.php');
 
@@ -11,10 +11,10 @@ if (strlen($_SESSION['scooteq_userid']!=0)) {
 }
 
 if(isset($_POST['commitLogin'])) {
-	$firstname = mysqli_real_escape_string($db_connection, $_POST['firstname']);
-	$lastname = mysqli_real_escape_string($db_connection, $_POST['lastname']);
-	$username = mysqli_real_escape_string($db_connection, $_POST['username']);
-	$unhashed_password = mysqli_real_escape_string($db_connection, $_POST['password']);
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	$username = $_POST['username'];
+	$unhashed_password = $_POST['password'];
 	
 	if (checkGuidelines($firstname, $lastname, $username, $unhashed_password)) {
 		encryptPassword($unhashed_password);
@@ -70,16 +70,18 @@ function encryptPassword($unhashed_password) {
 		'cost' => 12,
 	];
 	
-	$GLOBALS['hashed_password'] = password_hash($unhashed_password, PASSWORD_BCRYPT, $options);
+	$GLOBALS['hashed_password'] = password_hash($unhashed_password, PASSWORD_DEFAULT, $options);
 }
 
 function checkUserExists($username) {
-	$sql_getUserAmount = "SELECT count(id) AS 'id' FROM `".$GLOBALS['tbl_name']."` WHERE username=?;";
+	$sql_getUserAmount = "SELECT count(*) AS `id` FROM `".$GLOBALS['tbl_name']."` WHERE username=?;";
 	
 	//Prepare statements
 	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_getUserAmount)) {
-		echo "SQL statement failed!";
+		echo "SQL CHECK statement failed!";
+		var_dump(mysqli_stmt_error_list($stmt));
+		exit;
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "s", $username);
@@ -91,19 +93,21 @@ function checkUserExists($username) {
 	
 	if($data['id'] != 0) {
 		$_SESSION['register_err']="Username already exists";
-		header("Location:".$GLOBALS['projectPath']."/register");
+		header("Location: ".$GLOBALS['projectPath']."/register");
 		exit();
 	}
 }
 
 function createUser($firstname, $lastname, $username, $hashed_password) {
-	$sql_createUser = "INSERT INTO ".$GLOBALS['tbl_name']." (firstname, lastname, username, password)
+	$sql_createUser = "INSERT INTO ".$GLOBALS['tbl_name']." (firstname, lastname, username, hash_password)
 	VALUES (?, ?, ?, ?);";
 	
 	//Prepare statements
 	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_createUser)) {
-		echo "Input SQL statement failed!";
+		echo "SQL INPUT statement failed!";
+		var_dump(mysqli_stmt_error_list($stmt));
+		exit;
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $username, $hashed_password);
@@ -117,7 +121,9 @@ function loginUser($username, $hashed_password) {
 	//Prepare statements
 	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_getUser)) {
-		echo "SQL statement failed!";
+		echo "SQL SELECT statement failed!";
+		var_dump(mysqli_stmt_error_list($stmt));
+		exit;
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "s", $username);
@@ -132,8 +138,8 @@ function loginUser($username, $hashed_password) {
 		$_SESSION['scooteq_firstname']=$data['firstname'];
 		$_SESSION['scooteq_lastname']=$data['lastname'];
 		$_SESSION['scooteq_username']=$data['username'];
-		$_SESSION['scooteq_userid']=$data['id'];
-		header("Location:".$projectPath);
+		$_SESSION['scooteq_userid']=$data['userid'];
+		header("Location: ".$projectPath);
 	} else {
 		$_SESSION['register_err']="Username already exists";
 		exit();

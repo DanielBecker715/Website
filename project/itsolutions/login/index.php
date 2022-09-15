@@ -1,5 +1,5 @@
 <?php
-session_start();
+require($_SERVER["DOCUMENT_ROOT"].'/settings/start_session.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/general.php');
 include($_SERVER["DOCUMENT_ROOT"].'/settings/itsolutions/database/user_connection.php');
 
@@ -7,12 +7,13 @@ $tbl_name = "users";
 
 //Check if user is already logged in / based on session id
 if (strlen($_SESSION['itsolutions_userid']!=0)) {
-	header("Location:".$projectPath);
+	header("Location: ".$projectPath);
+	exit;
 }
 
 if(isset($_POST['commitLogin'])) {
-	$username = mysqli_real_escape_string($db_connection, $_POST['username']);
-	$unhashed_password = mysqli_real_escape_string($db_connection, $_POST['password']);
+	$username = $_POST['username'];
+	$unhashed_password = $_POST['password'];
 	loginUser($username, $unhashed_password);
 }
 
@@ -23,6 +24,8 @@ function loginUser($username, $unhashed_password) {
 	$stmt = mysqli_stmt_init($GLOBALS['db_connection']);
 	if (!mysqli_stmt_prepare($stmt, $sql_getUser)) {
 		echo "SQL statement failed!";
+		var_dump(mysqli_stmt_error_list($stmt));
+		exit;
 	} else {
 		//Bind parameter to placeholder
 		mysqli_stmt_bind_param($stmt, "s", $username);
@@ -31,17 +34,18 @@ function loginUser($username, $unhashed_password) {
 		
 		$data = mysqli_fetch_array($result);
 	}
+
+	$isPasswordCorrect = password_verify($unhashed_password, $data['hash_password']);
 	
-	$isPasswordCorrect = password_verify($unhashed_password, $data['password']);
-	
-	if(isset($data['id'])) {
+	if(isset($data['userid'])) {
 		//If user was found
 		if ($isPasswordCorrect) {
 			$_SESSION['itsolutions_firstname']=$data['firstname'];
 			$_SESSION['itsolutions_lastname']=$data['lastname'];
 			$_SESSION['itsolutions_username']=$data['username'];
-			$_SESSION['itsolutions_userid']=$data['id'];
-			header("Location:".$GLOBALS['projectPath']);
+			$_SESSION['itsolutions_userid']=$data['userid'];
+			header("Location: ".$GLOBALS['projectPath']);
+			exit;
 		} else {
 			$_SESSION['register_err']="Wrong password or username";
 		}
