@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react"
 import { Skull, Menu, X } from "lucide-react"
+import Link from "next/link"
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Threats", href: "#threats" },
   { label: "Repos", href: "#repos" },
   { label: "Toolkit", href: "#toolkit" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Status", href: "/status" },
   { label: "Contact", href: "#contact" },
 ]
 
@@ -38,12 +41,21 @@ export function Nav() {
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
-              >
-                {link.label}
-              </a>
+              {link.href.startsWith("/") ? (
+                <Link
+                  href={link.href}
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                >
+                  {link.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -62,13 +74,23 @@ export function Nav() {
           <ul className="flex flex-col items-center gap-4 py-6">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    href={link.href}
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

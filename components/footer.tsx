@@ -37,69 +37,55 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative border-t border-border bg-card/50">
+    <footer className="relative border-t border-border bg-background">
       {/* Decorative top glow line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        {/* Main Footer Grid */}
-        <div className="flex flex-col items-center gap-10">
-          {/* Brand */}
-          <div className="flex flex-col items-center gap-3">
-            <a href="/" className="flex items-center gap-2 text-primary font-mono text-lg font-bold tracking-wider group">
-              <Skull className="h-6 w-6 transition-transform duration-300 group-hover:rotate-12" />
-              <span>darkvoidstudios</span>
-            </a>
-            <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase">
-              Into the Void
-            </p>
-          </div>
+      <div className="mx-auto max-w-6xl px-6 py-6">
+        {/* Top row: brand + socials */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <a href="/" className="flex items-center gap-2 text-primary font-mono text-sm font-bold tracking-wider group">
+            <Skull className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+            <span>darkvoidstudios</span>
+          </a>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-center"
+                className="flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary hover:shadow-[0_0_12px_hsl(162,78%,48%,0.25)]"
                 aria-label={link.label}
               >
-                {/* Glow ring on hover */}
-                <span className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/10 transition-all duration-300 scale-150" />
-                <span className="relative flex items-center justify-center h-10 w-10 rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 group-hover:border-primary group-hover:text-primary group-hover:shadow-[0_0_15px_hsl(162,78%,48%,0.3)]">
-                  {link.icon}
-                </span>
+                {link.icon}
               </a>
             ))}
           </div>
+        </div>
 
-          {/* Divider */}
-          <div className="w-full flex items-center gap-4">
-            <div className="flex-1 h-px bg-border" />
-            <span className="font-mono text-xs text-primary/40 tracking-wider">{"// EOF"}</span>
-            <div className="flex-1 h-px bg-border" />
-          </div>
+        {/* Divider */}
+        <div className="flex items-center gap-4 my-4">
+          <div className="flex-1 h-px bg-border" />
+          <span className="font-mono text-[10px] text-primary/40 tracking-wider">{"// EOF"}</span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
 
-          {/* Bottom Row */}
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="font-mono text-xs text-muted-foreground/60">
-              <span className="text-primary/60">$</span>{" "}
-              {`\u00A9 ${currentYear} darkvoidstudios. All rights reserved.`}
-            </p>
-            <Link
-              href="/privacy"
-              className="font-mono text-xs text-muted-foreground/60 hover:text-primary transition-colors duration-300 underline underline-offset-4 decoration-border hover:decoration-primary"
-            >
-              Privacy Policy
-            </Link>
-          </div>
+        {/* Bottom row: copyright + privacy */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="font-mono text-[11px] text-muted-foreground/60">
+            <span className="text-primary/60">$</span>{" "}
+            {`\u00A9 ${currentYear} darkvoidstudios. All rights reserved.`}
+          </p>
+          <Link
+            href="/privacy"
+            className="font-mono text-[11px] text-muted-foreground/60 hover:text-primary transition-colors duration-300 underline underline-offset-4 decoration-border hover:decoration-primary"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
-
-      {/* Scanline effect at the very bottom */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
     </footer>
   )
 }

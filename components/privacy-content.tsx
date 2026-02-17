@@ -56,7 +56,9 @@ const tocItems = [
 export function PrivacyContent() {
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-hidden">
-      <MatrixRain />
+      <div className="opacity-20">
+        <MatrixRain />
+      </div>
       <div className="relative z-10">
         {/* Header */}
         <div className="border-b border-border bg-card/30 backdrop-blur-xl">
