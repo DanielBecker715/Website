@@ -17,7 +17,7 @@ export function MatrixRain() {
     let columns = 0
     let drops: number[] = []
 
-    let initialized = false
+    const randomDrop = (maxRow: number) => Math.floor(Math.random() * maxRow)
 
     const resize = () => {
       canvas.width = window.innerWidth
@@ -26,19 +26,14 @@ export function MatrixRain() {
       const maxRow = Math.floor(canvas.height / fontSize)
       if (newColumns !== columns) {
         const oldDrops = drops
-        // On first load, scatter drops randomly so the rain is already visible everywhere
-        drops = Array(newColumns).fill(0).map(() =>
-          initialized ? 1 : Math.floor(Math.random() * maxRow)
-        )
-        // Preserve existing drop positions on subsequent resizes
-        if (initialized) {
-          for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
-            drops[i] = oldDrops[i]
-          }
+        // Always scatter new drops randomly so there is never a top-down scan
+        drops = Array(newColumns).fill(0).map(() => randomDrop(maxRow))
+        // Preserve existing drop positions for columns that already existed
+        for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
+          drops[i] = oldDrops[i]
         }
         columns = newColumns
       }
-      initialized = true
     }
     resize()
     window.addEventListener("resize", resize)
@@ -61,6 +56,12 @@ export function MatrixRain() {
         drops[i]++
       }
       ctx.globalAlpha = 1
+    }
+
+    // Pre-render ~200 frames offscreen so the canvas already has
+    // the full "lived-in" look with faded trails on first paint
+    for (let f = 0; f < 200; f++) {
+      draw()
     }
 
     const interval = setInterval(draw, 50)
