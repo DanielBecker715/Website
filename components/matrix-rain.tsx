@@ -17,19 +17,28 @@ export function MatrixRain() {
     let columns = 0
     let drops: number[] = []
 
+    let initialized = false
+
     const resize = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
       const newColumns = Math.floor(canvas.width / fontSize)
+      const maxRow = Math.floor(canvas.height / fontSize)
       if (newColumns !== columns) {
         const oldDrops = drops
-        drops = Array(newColumns).fill(1)
-        // Preserve existing drop positions where possible
-        for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
-          drops[i] = oldDrops[i]
+        // On first load, scatter drops randomly so the rain is already visible everywhere
+        drops = Array(newColumns).fill(0).map(() =>
+          initialized ? 1 : Math.floor(Math.random() * maxRow)
+        )
+        // Preserve existing drop positions on subsequent resizes
+        if (initialized) {
+          for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
+            drops[i] = oldDrops[i]
+          }
         }
         columns = newColumns
       }
+      initialized = true
     }
     resize()
     window.addEventListener("resize", resize)
