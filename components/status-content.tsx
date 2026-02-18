@@ -22,7 +22,7 @@ export function StatusContent() {
       <div className="relative z-10">
         {/* Header */}
         <div className="border-b border-border bg-background">
-          <div className="mx-auto max-w-4xl px-6 py-6 flex items-center justify-between">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
             <Link
               href="/"
               className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 font-mono text-sm group"
@@ -38,7 +38,7 @@ export function StatusContent() {
         </div>
 
         {/* Title */}
-        <div className="mx-auto max-w-4xl px-6 pt-16 pb-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-16 pb-8 sm:pb-12">
           <ScrollReveal>
             <div className="flex flex-col items-center text-center gap-4">
               <div className="flex items-center justify-center h-16 w-16 rounded-full border border-primary/30 bg-primary/5">
@@ -58,7 +58,7 @@ export function StatusContent() {
         </div>
 
         {/* Status List */}
-        <div className="mx-auto max-w-4xl px-6 pb-20 flex flex-col gap-3">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pb-16 sm:pb-20 flex flex-col gap-3">
           {services.map((service, i) => (
             <ScrollReveal key={service.name} delay={i * 80}>
               <div className="flex items-center justify-between rounded-lg border border-border bg-card p-4 transition-all duration-300 hover:border-primary/30">

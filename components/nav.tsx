@@ -70,8 +70,8 @@ export function Nav() {
       </nav>
 
       {mobileOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border">
-          <ul className="flex flex-col items-center gap-4 py-6">
+        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border max-h-[70vh] overflow-y-auto">
+          <ul className="flex flex-col items-center gap-3 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 {link.href.startsWith("/") ? (

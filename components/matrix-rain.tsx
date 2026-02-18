@@ -12,17 +12,27 @@ export function MatrixRain() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
+    const fontSize = 14
+    let columns = 0
+    let drops: number[] = []
+
     const resize = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+      const newColumns = Math.floor(canvas.width / fontSize)
+      if (newColumns !== columns) {
+        const oldDrops = drops
+        drops = Array(newColumns).fill(1)
+        // Preserve existing drop positions where possible
+        for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
+          drops[i] = oldDrops[i]
+        }
+        columns = newColumns
+      }
     }
     resize()
     window.addEventListener("resize", resize)
-
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
-    const fontSize = 14
-    const columns = Math.floor(canvas.width / fontSize)
-    const drops: number[] = Array(columns).fill(1)
 
     const draw = () => {
       ctx.fillStyle = "rgba(10, 14, 20, 0.05)"

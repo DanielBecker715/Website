@@ -17,20 +17,20 @@ interface SectionProps {
 function PolicySection({ id, icon, title, children, delay = 0 }: SectionProps) {
   return (
     <ScrollReveal delay={delay}>
-      <section id={id} className="group relative rounded-lg border border-border bg-card/50 p-6 sm:p-8 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_30px_hsl(162,78%,48%,0.05)]">
+      <section id={id} className="group relative rounded-lg border border-border bg-card/50 p-4 sm:p-6 md:p-8 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_30px_hsl(162,78%,48%,0.05)]">
         {/* Accent corner */}
-        <div className="absolute top-0 left-0 h-8 w-8 border-t-2 border-l-2 border-primary/30 rounded-tl-lg transition-colors duration-300 group-hover:border-primary/60" />
-        <div className="absolute bottom-0 right-0 h-8 w-8 border-b-2 border-r-2 border-primary/30 rounded-br-lg transition-colors duration-300 group-hover:border-primary/60" />
+        <div className="absolute top-0 left-0 h-6 w-6 sm:h-8 sm:w-8 border-t-2 border-l-2 border-primary/30 rounded-tl-lg transition-colors duration-300 group-hover:border-primary/60" />
+        <div className="absolute bottom-0 right-0 h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-r-2 border-primary/30 rounded-br-lg transition-colors duration-300 group-hover:border-primary/60" />
 
-        <div className="flex items-center gap-3 mb-6">
-          <span className="flex items-center justify-center h-9 w-9 rounded-md bg-primary/10 text-primary">
+        <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+          <span className="flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-md bg-primary/10 text-primary shrink-0">
             {icon}
           </span>
-          <h2 className="font-mono text-lg sm:text-xl font-bold text-foreground tracking-wide">
+          <h2 className="font-mono text-base sm:text-lg md:text-xl font-bold text-foreground tracking-wide">
             {title}
           </h2>
         </div>
-        <div className="space-y-4 font-mono text-sm leading-relaxed text-muted-foreground">
+        <div className="space-y-3 sm:space-y-4 font-mono text-xs sm:text-sm leading-relaxed text-muted-foreground">
           {children}
         </div>
       </section>
@@ -56,13 +56,13 @@ const tocItems = [
 export function PrivacyContent() {
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-hidden">
-      <div className="opacity-20">
+      <div className="opacity-10">
         <MatrixRain />
       </div>
       <div className="relative z-10">
         {/* Header */}
         <div className="border-b border-border bg-card/30 backdrop-blur-xl">
-          <div className="mx-auto max-w-4xl px-6 py-6 flex items-center justify-between">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
             <Link
               href="/"
               className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 font-mono text-sm group"
@@ -78,7 +78,7 @@ export function PrivacyContent() {
         </div>
 
         {/* Title Area */}
-        <div className="mx-auto max-w-4xl px-6 pt-16 pb-8">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-16 pb-6 sm:pb-8">
           <ScrollReveal>
             <div className="flex flex-col items-center text-center gap-4">
               <div className="flex items-center justify-center h-16 w-16 rounded-full border border-primary/30 bg-primary/5">
@@ -98,13 +98,13 @@ export function PrivacyContent() {
         </div>
 
         {/* Table of Contents */}
-        <div className="mx-auto max-w-4xl px-6 pb-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pb-8 sm:pb-12">
           <ScrollReveal delay={100}>
-            <div className="rounded-lg border border-border bg-card/50 p-6">
-              <p className="font-mono text-xs text-primary/60 mb-4 tracking-wider uppercase">
+            <div className="rounded-lg border border-border bg-card/50 p-4 sm:p-6">
+              <p className="font-mono text-xs text-primary/60 mb-3 sm:mb-4 tracking-wider uppercase">
                 {"// Table of Contents"}
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {tocItems.map((item, i) => (
                   <a
                     key={item.id}
@@ -121,7 +121,7 @@ export function PrivacyContent() {
         </div>
 
         {/* Sections */}
-        <div className="mx-auto max-w-4xl px-6 pb-20 flex flex-col gap-6">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pb-16 sm:pb-20 flex flex-col gap-4 sm:gap-6">
           <PolicySection id="controller" icon={<Users className="h-5 w-5" />} title="Controller" delay={0}>
             <p>
               Daniel Becker<br />
