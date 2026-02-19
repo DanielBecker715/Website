@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/f5a884e2d6201af3.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"ViewportBoundary"]
+3:I[97367,["/_next/static/chunks/f5a884e2d6201af3.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"fFDAJYu5-a3V1E0PTRdR5","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#0a0e14"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"darkvoidstudios - Into the Void"}],["$","meta","1",{"name":"description","content":"A corner of the internet dedicated to the dark side of computing. Ransomware internals, trojan architectures, OWASP attack vectors, and the code behind the chaos."}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}

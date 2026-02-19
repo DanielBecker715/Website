@@ -12,17 +12,31 @@ export function MatrixRain() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
+    const fontSize = 14
+    let columns = 0
+    let drops: number[] = []
+
+    const randomDrop = (maxRow: number) => Math.floor(Math.random() * maxRow)
+
     const resize = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+      const newColumns = Math.floor(canvas.width / fontSize)
+      const maxRow = Math.floor(canvas.height / fontSize)
+      if (newColumns !== columns) {
+        const oldDrops = drops
+        // Always scatter new drops randomly so there is never a top-down scan
+        drops = Array(newColumns).fill(0).map(() => randomDrop(maxRow))
+        // Preserve existing drop positions for columns that already existed
+        for (let i = 0; i < Math.min(oldDrops.length, newColumns); i++) {
+          drops[i] = oldDrops[i]
+        }
+        columns = newColumns
+      }
     }
     resize()
     window.addEventListener("resize", resize)
-
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
-    const fontSize = 14
-    const columns = Math.floor(canvas.width / fontSize)
-    const drops: number[] = Array(columns).fill(1)
 
     const draw = () => {
       ctx.fillStyle = "rgba(10, 14, 20, 0.05)"
@@ -42,6 +56,12 @@ export function MatrixRain() {
         drops[i]++
       }
       ctx.globalAlpha = 1
+    }
+
+    // Pre-render ~200 frames offscreen so the canvas already has
+    // the full "lived-in" look with faded trails on first paint
+    for (let f = 0; f < 200; f++) {
+      draw()
     }
 
     const interval = setInterval(draw, 50)
