@@ -78,12 +78,21 @@ export function Footer() {
             <span className="text-primary/60">$</span>{" "}
             {`\u00A9 ${currentYear} darkvoidstudios. All rights reserved.`}
           </p>
-          <Link
-            href="/privacy"
-            className="font-mono text-[11px] text-muted-foreground/60 hover:text-primary transition-colors duration-300 underline underline-offset-4 decoration-border hover:decoration-primary"
-          >
-            Privacy Policy
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/privacy"
+              className="font-mono text-[11px] text-muted-foreground/60 hover:text-primary transition-colors duration-300 underline underline-offset-4 decoration-border hover:decoration-primary"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-muted-foreground/30 font-mono text-[11px]">|</span>
+            <Link
+              href="/impressum"
+              className="font-mono text-[11px] text-muted-foreground/60 hover:text-primary transition-colors duration-300 underline underline-offset-4 decoration-border hover:decoration-primary"
+            >
+              Impressum
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
