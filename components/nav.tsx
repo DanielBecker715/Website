@@ -5,13 +5,11 @@ import { Skull, Menu, X } from "lucide-react"
 import Link from "next/link"
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Threats", href: "#threats" },
-  { label: "Repos", href: "#repos" },
-  { label: "Toolkit", href: "#toolkit" },
-  { label: "Gallery", href: "https://gallery.darkvoidstudios.com/" },
   { label: "Status", href: "https://status.darkvoidstudios.com/" },
-  { label: "Contact", href: "#contact" },
+  { label: "Gallery", href: "https://gallery.darkvoidstudios.com/" },
+  { label: "API's", href: "https://api.darkvoidstudios.com/" },
+  { label: "Mail", href: "https://mail.darkvoidstudios.com/" },
+  { label: "Drive", href: "https://drive.darkvoidstudios.com/" },
 ]
 
 export function Nav() {
