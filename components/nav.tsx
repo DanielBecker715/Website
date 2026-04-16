@@ -9,8 +9,8 @@ const navLinks = [
   { label: "Threats", href: "#threats" },
   { label: "Repos", href: "#repos" },
   { label: "Toolkit", href: "#toolkit" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Status", href: "/status" },
+  { label: "Gallery", href: "https://gallery.darkvoidstudios.com/" },
+  { label: "Status", href: "https://status.darkvoidstudios.com/" },
   { label: "Contact", href: "#contact" },
 ]
 
@@ -41,7 +41,16 @@ export function Nav() {
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              {link.href.startsWith("/") ? (
+              {link.href.startsWith("http") ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                >
+                  {link.label}
+                </a>
+              ) : link.href.startsWith("/") ? (
                 <Link
                   href={link.href}
                   className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
@@ -74,7 +83,17 @@ export function Nav() {
           <ul className="flex flex-col items-center gap-3 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
-                {link.href.startsWith("/") ? (
+                {link.href.startsWith("http") ? (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ) : link.href.startsWith("/") ? (
                   <Link
                     href={link.href}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm font-mono tracking-wide"
